@@ -5,6 +5,7 @@ import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfil
 import rollupNodePolyFill from 'rollup-plugin-node-polyfills';
 
 export default defineConfig({
+  base: '/Boldo-Website/',
   plugins: [react()],
   optimizeDeps: {
     esbuildOptions: {

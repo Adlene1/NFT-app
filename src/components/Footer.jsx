@@ -97,7 +97,7 @@ const MarketPlaceHolder = styled.div`
     border-radius: 8px 0px 0px 8px;
   }
   @media (max-width: 412px) {
-     button{
+      button{
       height: 50px;
       width: 111px;
     }

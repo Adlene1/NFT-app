@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import styled from "styled-components";
 import ColoredCircle from "./ColoredCircle";
 import { useState, useEffect } from "react";

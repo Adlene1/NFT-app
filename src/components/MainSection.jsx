@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import ColoredCircle from "./ColoredCircle";
@@ -446,7 +445,7 @@ const MainSection = () => {
       setCurrentSlide((prev) => (prev + 1) % images.length);
     }, 3000);
     return () => clearTimeout(timer);
-  }, [currentSlide]);
+  }, [currentSlide, images.length]);
 
   const getImage = (offset) =>
     images[(currentSlide + offset + images.length) % images.length];
