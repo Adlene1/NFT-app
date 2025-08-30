@@ -1,36 +1,19 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
-import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill';
-import rollupNodePolyFill from 'rollup-plugin-node-polyfills';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
+// https://vitejs.dev/config/
 export default defineConfig({
-  base: '/Boldo-Website/',
+  base: '/NFT-Application/',
   plugins: [react()],
-  optimizeDeps: {
-    esbuildOptions: {
-      define: {
-        global: 'globalThis',
-      },
-      plugins: [
-        NodeGlobalsPolyfillPlugin({
-          process: true,
-          buffer: true,
-        }),
-        NodeModulesPolyfillPlugin(),
-      ],
-    },
+  define: {
+    'process.env': {},   // polyfill process.env
   },
   resolve: {
     alias: {
-      util: 'rollup-plugin-node-polyfills/polyfills/util',
-      events: 'rollup-plugin-node-polyfills/polyfills/events',
-      stream: 'rollup-plugin-node-polyfills/polyfills/stream',
+      process: 'process/browser',
+      stream: 'stream-browserify',
+      util: 'util',
+      assert: 'assert',
     },
   },
-  build: {
-    rollupOptions: {
-      plugins: [rollupNodePolyFill()],
-    },
-  },
-});
+})
