@@ -97,7 +97,7 @@ const MarketPlaceHolder = styled.div`
     border-radius: 8px 0px 0px 8px;
   }
   @media (max-width: 412px) {
-      button{
+     button{
       height: 50px;
       width: 111px;
     }
@@ -187,10 +187,10 @@ const Footer = () => {
             <button className="cardsBtns">Subscribe</button>
           </div>
           <div>
-            <img src="/icons/Facebook.png" alt="" />
-            <img src="/icons/Twitter.png" alt="" />
-            <img src="/icons/insta.png" alt="" />
-            <img src="/icons/LinkedIn.png" alt="" />
+            <img src="icons/Facebook.png" alt="" />
+            <img src="icons/Twitter.png" alt="" />
+            <img src="icons/insta.png" alt="" />
+            <img src="icons/LinkedIn.png" alt="" />
           </div>
         </MarketPlaceHolder>
       </ContentHolder>

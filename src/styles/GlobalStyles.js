@@ -3,7 +3,7 @@ import { createGlobalStyle } from "styled-components";
 const GlobalStyles = createGlobalStyle`
 @font-face {
   font-family: 'Outfit';
-  src: url('/fonts/Outfit-Variable.woff2.ttf') format('truetype');
+  src: url('fonts/Outfit-Variable.woff2.ttf') format('truetype');
   font-weight: 100 900; /* variable range */
   font-style: normal;
   font-display: swap;

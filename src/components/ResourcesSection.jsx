@@ -1,25 +1,36 @@
+/* eslint-disable no-unused-vars */
 import styled from "styled-components";
 import ColoredCircle from "./ColoredCircle";
-const SectionHolder = styled.section`
+import { useState, useEffect } from "react";
+import { notableDrops } from "./moralis/openSea";
+
+const SectionHolder = styled.div`
+  display: flex;
+  margin-top: 107px;
   position: relative;
-  height: 650px;
+  height: 579px;
   width: 100%;
-  //border: white solid 1px;
   padding: 0px 115px 0px 115px;
-  @media (max-width: 1100px) {
-    height: 1116px;
-  }
+  //border: 1px white solid;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+@media (max-width: 1000px) {
+  height: fit-content;
+}
 `;
 const NftHeader = styled.h1`
   font-size: 96px;
+  font-style: bold;
   font-weight: 700;
   line-height: 80px;
+  letter-spacing: -1.4%;
   background: linear-gradient(to right, #0500fa, #e01e5a);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
   display: inline-block;
-  z-index: -1;
 `;
 const ContentContainer = styled.section`
   position: absolute;
@@ -29,238 +40,195 @@ const ContentContainer = styled.section`
   width: 100%;
   height: 100%;
   //border: 1px solid white;
-  padding: 0px 115px 0px 115px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  h3 {
+  pointer-events: none;
+  padding-top: 27px;
+  h2 {
     font-size: 44px;
     font-weight: 500;
+    line-height: 48px;
+    @media (max-width: 500px) {
+      font-size: 31px;
+    }
   }
 `;
-const CardsContainer = styled.div`
-  flex: 1;
+const CardHolder = styled.div`
   width: 100%;
-  //border: #ffffff71 solid 1px;
+  flex: 1;
   display: flex;
-  gap: 20px;
-  @media (max-width: 1100px) {
+  justify-content: space-between;
+  @media (max-width: 1000px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  @media (max-width: 570px) {
+    display: flex;
     flex-direction: column;
     align-items: center;
   }
-  > div {
-    width: 49%;
-    position: relative;
-    @media (max-width: 1100px) {
-      width: 100%;
-    }
-  }
-  > div:nth-of-type(1) {
-    position: relative;
-
-    > img {
-      width: 100%;
-      height: 88%;
-    }
-  }
-  > div:nth-of-type(2) {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    gap: 10px;
-  }
 `;
-const FirstCard = styled.div`
-  width: 96%;
-  height: 210px;
-  z-index: 1;
-  position: absolute;
-  bottom: 0px;
-  left: 17px;
-  padding: 32px;
+const Card = styled.div`
+  width: 24%;
+  height: 100%;
+  background-color: #1e1b33;
+  padding: 25px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #1e1b33;
-  border-radius: 8px;
-  @media (max-width: 1200px) {
-    & h4 {
-      font-size: 19px !important;
+  align-items: center;
+  @media (max-width: 1000px) {
+    width: 288px;
+    height: 499px;
+  }
+  @media (max-width: 600px) {
+    width: 264px;
+    height: 491px;
+    p {
+      font-size: 14px;
     }
-    & p {
-      font-size: 13px !important;
+  }
+  @media (max-width: 570px) {
+    width: 288px;
+    height: 499px;
+    p {
+      font-size: 14px;
+    }
+  }
+  @media (max-width: 570px) {
+    h3{
+      font-size: 24px!important;
+    }
+    p{
+      font-size: 16px!important;
     }
   }
 
+  > img {
+    width: 100%;
+    height: 232px;
+  }
   > div {
     display: flex;
-    justify-content: start;
-    align-items: center;
+    justify-content: space-between;
+  }
+  h3 {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 120%;
+    letter-spacing: 0%;
+    @media (max-width: 600px) {
+      font-size: 21px;
+    }
+  }
+  section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  > div > section:nth-of-type(1) {
+    align-items: flex-start;
   }
   button {
-    width: 114px;
-    height: 30px;
-    border: 0.5px solid #ffffffa9;
+    width: 100%;
+    height: 38px;
+    border-radius: 8px;
+    outline: none;
+    border: 0.5px solid #ffffff;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     background: linear-gradient(to right, #0500fa, #e01e5a);
-    border-radius: 8px;
-    margin-right: 5px;
+    background-size: 0% 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s ease;
   }
-  img {
-    margin-right: 5px;
-  }
-  span {
-    opacity: 0.6;
-  }
-  h4 {
-    font-size: 23px;
-    font-weight: 500;
+  button:hover {
+    background-size: 100% 100%;
   }
 `;
-const SecondCard = styled.div`
-  width: 96%;
-  height: 210px;
-  z-index: 1;
-  padding: 32px;
-  display: flex;
+const SelectedDrops = () => {
+  const [drops, setDrops] = useState([]);
 
-  justify-content: space-between;
-  background-color: #1e1b33;
-  border-radius: 8px;
-  @media (max-width: 500px) {
-    padding: 11px;
-  }
-  > img {
-    width: 152px;
-    height: 152px;
-    margin-right: 5px;
-    @media (max-width: 500px) {
-      width: 112px;
-      height: 109px;
-      margin-right: 5px;
-      align-self: center;
-    }
-  }
-`;
-const CardInfoHolder = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  @media (max-width: 1200px) {
-    h4 {
-      font-size: 19px !important;
-    }
-    p {
-      font-size: 13px !important;
-    }
-    @media (max-width: 500px) {
-      button{
-        width: 60px;
+  const fourNfts = (res) => {
+    const result = [];
+    for (let i = 0; i < res.length; i++) {
+      const asset = res[i]?.asset;
+      if (!asset) continue;
+
+      if (asset.display_image_url && asset.name && asset.name.length < 30) {
+        result.push(asset);
       }
+      if (result.length === 4) break;
     }
-  }
-  > div {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  button:nth-of-type(1) {
-    width: 87px;
-    
-  }
-  button:nth-of-type(2) {
-    width: 75px;
-  }
-  h4 {
-    font-size: 23px;
-    font-weight: 500;
-  }
-  img {
-    margin-right: 5px;
-  }
-  span {
-    opacity: 0.6;
-  }
-`;
-const ResourcesSection = () => {
+    return result;
+  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await notableDrops();
+      const firstFour = fourNfts(result);
+      console.log("events:", firstFour);
+      setDrops(firstFour);
+    };
+    fetchData();
+  }, []);
   return (
     <SectionHolder id="section-container" className="componentHolder">
       <NftHeader>NFTs</NftHeader>
-      <ColoredCircle />
-      <ContentContainer id="section-container">
-        <h3>Resources for getting started</h3>
-        <CardsContainer>
-          <div>
-            <img src="/giant.png" alt="" />
-            <FirstCard>
-              <div>
-                <button>NFT Token</button>
-                <p>
-                  <img src="/icons/ant-design_comment-outlined.png" alt="" />
-                  No Comment
-                </p>
-              </div>
-              <h4>The Seven Secrets I should have received NFTs. </h4>
-              <div>
-                <img src="/profile1.png" alt="" />
-                <p>
-                  Election Season <br />
-                  <span>June 2, 2022</span>
-                </p>
-              </div>
-            </FirstCard>
-          </div>
-          <div>
-            <SecondCard>
-              <img src="/bg1.png" alt="" />
-              <CardInfoHolder>
-                <div>
-                  <button className="cardsBtns">Game</button>
-                  <button className="cardsBtns">NFT</button>
-                  <p>
-                    <img src="/icons/ant-design_comment-outlined.png" alt="" />
-                    No Comment
-                  </p>
-                </div>
-                <h4>I think I minted duplicate NFTs</h4>
-                <div>
-                  <img src="/profile2.png" alt="" />
-                  <p>
-                    Courtney Henry <br />
-                    <span>May 27, 2022</span>
-                  </p>
-                </div>
-              </CardInfoHolder>
-            </SecondCard>
-            <SecondCard>
-              <img src="/bg1.png" alt="" />
-              <CardInfoHolder>
-                <div>
-                  <button className="cardsBtns">Game</button>
-                  <button className="cardsBtns">NFT</button>
-                  <p>
-                    <img src="/icons/ant-design_comment-outlined.png" alt="" />
-                    No Comment
-                  </p>
-                </div>
-                <h4>The Marketplace isn’t working</h4>
-                <div>
-                  <img src="/jackSmith.png" alt="" />
-                  <p>
-                    Courtney Henry <br />
-                    <span>May 27, 2022</span>
-                  </p>
-                </div>
-              </CardInfoHolder>
-            </SecondCard>
-          </div>
-        </CardsContainer>
+      <ColoredCircle $top="103px" $right="182px" />
+      <ContentContainer>
+        <h2>Selected notable drops</h2>
       </ContentContainer>
+      <CardHolder>
+        {drops.map((drop, index) => (
+          <Card key={index}>
+            {drop.display_animation_url ? (
+              <video
+                src={drop.display_animation_url}
+                autoPlay
+                muted
+                loop
+                playsInline
+                style={{
+                  width: "100%",
+                  height: "200px",
+                  objectFit: "cover",
+                  borderRadius: "8px",
+                }}
+              />
+            ) : (
+              <img
+                src={drop.display_image_url || "cardPic.png"}
+                alt={drop.name}
+                style={{
+                  width: "100%",
+                  height: "200px",
+                  objectFit: "cover",
+                  borderRadius: "8px",
+                }}
+              />
+            )}
+            <div>
+              <section>
+                <h3>{drop.name || "Untitled Drop"}</h3>
+                <p>
+                  <img src="icons/greenShape.png" alt="" />
+                  From {drop.floor_price ?? "N/A"} Flow
+                </p>
+              </section>
+              <section>
+                <span>
+                  <img src="heart.png" alt="" />
+                  {drop.likes || 10}
+                </span>
+                <img src="Group.png" alt="" />
+              </section>
+            </div>
+            <button>Live now</button>
+          </Card>
+        ))}
+      </CardHolder>
     </SectionHolder>
   );
 };
-export default ResourcesSection;
+export default SelectedDrops;

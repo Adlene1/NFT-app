@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { openSea } from "./moralis/openSea";
@@ -202,11 +203,11 @@ const PopularSection = () => {
               <h4>{item.name}</h4>
               <div>
                 <p>
-                  <img src="/icons/ethShape.png" alt="" /> <span>From</span>{" "}
+                  <img src="icons/ethShape.png" alt="" /> <span>From</span>{" "}
                   0.05 ETH
                 </p>
                 <p>
-                  <img src="/icons/heart.png" alt="" />
+                  <img src="icons/heart.png" alt="" />
                   35
                 </p>
               </div>

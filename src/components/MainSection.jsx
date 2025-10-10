@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import ColoredCircle from "./ColoredCircle";
@@ -427,7 +428,7 @@ const StatisticsHolder = styled.section`
   }
 `;
 const MainSection = () => {
-  const images = ["/mainImage.png", "/secondImage.jpg", "firstImage.jpg"];
+  const images = ["mainImage.png", "secondImage.jpg", "firstImage.jpg"];
   const statistics = [
     { number: 30000, text: "World Arts" },
     { number: 18000, text: "Digital Artists" },
@@ -445,7 +446,7 @@ const MainSection = () => {
       setCurrentSlide((prev) => (prev + 1) % images.length);
     }, 3000);
     return () => clearTimeout(timer);
-  }, [currentSlide, images.length]);
+  }, [currentSlide]);
 
   const getImage = (offset) =>
     images[(currentSlide + offset + images.length) % images.length];
@@ -469,7 +470,7 @@ const MainSection = () => {
             <CreateBtn>Create</CreateBtn>
           </BtnsContainer>
           <LearnMoreContainer>
-            <img src="/icons/learnmore.png"></img>
+            <img src="icons/learnmore.png"></img>
             <p>Learn more about Nftico</p>
           </LearnMoreContainer>
           <ImageHolder
@@ -506,7 +507,7 @@ const MainSection = () => {
           <img key={currentSlide} src={images[currentSlide]} alt="main image" />
         </MainImageContainer>
         <ArrowHolder onClick={nextSlide}>
-          <img src="/icons/arrow.svg" alt="" />
+          <img src="icons/arrow.svg" alt="" />
         </ArrowHolder>
       </SliderContainer>
       <StatisticsHolder>

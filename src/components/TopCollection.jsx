@@ -172,7 +172,7 @@ const TopCollections = () => {
               <div>
                 <p>{nft.collection_title}</p>
                 <span>
-                  <img src="/icons/greenShape.png" alt="green" />
+                  <img src="icons/greenShape.png" alt="green" />
                   {nft.floor_price_usd}
                 </span>
               </div>

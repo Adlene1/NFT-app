@@ -32,8 +32,8 @@ const BrandsNames = () => {
   return (
     <SectionHolder id="section-container" className="componentHolder">
       <ImageContainer>
-        <img src="/BrandsName.png" alt="brands" />
-        <img src="/BrandsName.png" alt="brands" />
+        <img src="BrandsName.png" alt="brands" />
+        <img src="BrandsName.png" alt="brands" />
       </ImageContainer>
     </SectionHolder>
   );
