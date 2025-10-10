@@ -166,22 +166,26 @@ const TopCollections = () => {
           <button className="hoveredBtn">Ethereum</button>
         </CollectionTimeHolder>
         <CardsContainer id="section-container">
-          {collections.map((nft, index) => (
-            <Card key={index}>
-              <img src={nft.collection_image} />
-              <div>
-                <p>{nft.collection_title}</p>
-                <span>
-                  <img src="icons/greenShape.png" alt="green" />
-                  {nft.floor_price_usd}
-                </span>
-              </div>
-              <div>
-                <span>{nft.volume_usd} USD</span>
-                <span>{nft.floor_price_24hr_percent_change}</span>
-              </div>
-            </Card>
-          ))}
+  {Array.isArray(collections) && collections.length > 0 ? (
+    collections.map((nft, index) => (
+      <Card key={nft.id || nft.collection_title || index}>
+        <img src={nft.collection_image} alt={nft.collection_title} />
+        <div>
+          <p>{nft.collection_title}</p>
+          <span>
+            <img src="/NFT-app/icons/greenShape.png" alt="green" />
+            {nft.floor_price_usd}
+          </span>
+        </div>
+        <div>
+          <span>{nft.volume_usd} USD</span>
+          <span>{nft.floor_price_24hr_percent_change}</span>
+        </div>
+      </Card>
+    ))
+  ) : (
+    <p style={{ color: "white" }}>Loading collections...</p>
+  )}
         </CardsContainer>
         <CollectionsBtn>See All Collections</CollectionsBtn>
       </ContentContainer>
