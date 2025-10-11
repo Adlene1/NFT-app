@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { useState } from "react";
 import GlobalStyles from "./styles/GlobalStyles";
 import NavBar from "./components/NavBar";
 import MainSection from "./components/MainSection";
